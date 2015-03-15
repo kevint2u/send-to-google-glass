@@ -1,4 +1,0 @@
-const CONFIG = {
-  CLIENT_ID: "",
-  CLIENT_SECRET: ""
-};

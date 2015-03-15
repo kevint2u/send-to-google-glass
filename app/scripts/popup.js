@@ -15,6 +15,7 @@ function endsWith(s, suffix) {
 function submitCard() {
   var fields = document.getElementById("fields");
   var msg = document.getElementById('cardMsg').value;
+  // Gets background page script
   var bg = chrome.extension.getBackgroundPage();
 
   var msgType = 'text';
@@ -33,6 +34,27 @@ function submitCard() {
   });
 }
 
+/** 
+ * Sends an image in the local directory to Glass
+ */
+function autoSend() {
+  var image = 'image.jpg';
+  // Gets background page script
+  var bg = chrome.extension.getBackgroundPage();
+
+  var msgType = 'image';
+
+  bg.googleAuth.authorize(function() {
+
+    fields.className = 'animated bounceOut';
+    document.getElementById('cardMsg').value = '';
+
+    bg.sendCard(image, msgType, function () {
+      fields.className = 'animated bounceIn';
+    });
+  });
+}
+
 /**
  * Event listener, content is loaded
  */
@@ -43,11 +65,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   window.addEventListener("keydown", function(event) {
     if (event.keyCode == 13) {
-      submitCard();
+      autoSend();
     }
   }, false);
 
-  document.getElementById("send").addEventListener('click', submitCard);
+  document.getElementById("send").addEventListener('click', autoSend);
 
   /**
    * Get help, opens github

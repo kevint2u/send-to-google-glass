@@ -77,6 +77,7 @@ function genericOnClick(info, tab) {
         sendCard(info.selectionText, 'text');
       }
       else if (info.mediaType === 'image') {
+        console.log('IMAGE_URL = ' + info.srcUrl);
         sendCard(info.srcUrl, 'image');
       }
     }
